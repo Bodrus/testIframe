@@ -2,6 +2,10 @@
 const funcChange = () => {
    const body = document.querySelector('body');
    sendMessage();
+   
+   // Временное решение!!!!!
+   document.location.reload(true);
+   
    const { type } = screen.orientation;
    if (type === 'portrait-primary') {
       body.style.backgroundImage = 'url(portrait.png)';
@@ -36,7 +40,7 @@ window.addEventListener('load', () => {
       body.style.backgroundImage = 'url(portrait.png)';
    
    } else if (type === 'landscape-primary') {
-      body.style.backgroundImage = 'url(landscape.png)';     
+      body.style.backgroundImage = 'url(landscape.png)';
    }
 });
 
