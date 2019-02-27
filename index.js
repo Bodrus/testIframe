@@ -1,39 +1,21 @@
   
-const build = (iframe) => {
-   const { type } = screen.orientation;
-   const func = greateIframe[type];
-   return func(iframe);
-};
-   
+ 
 const buildIframe = () => {
    const iframe = document.createElement('iframe');
    iframe.src = 'frame/index.html';
-   iframe.style.backgroundRepeat = 'no-repeat';
-   iframe.style.backgroundSize = 'cover';
-   iframe.style.backgroundPosition = 'center';
    iframe.frameborder = 0;
+   iframe.style.border = 'none';
    iframe.style.setProperty('width', '100%', 'important');
    iframe.style.setProperty('height', '100%', 'important');
-   document.querySelector('.wrapper div:first-child').prepend(build(iframe));
+   iframe.style.setProperty("opacity", "1", "important");
+   document.querySelector('.wrapper div:first-child').prepend(iframe);
 };
    
-const greateIframe = {
-   'portrait-primary' : (iframe) => {    
-      iframe.style.setProperty("opacity", "1", "important");
-      iframe.style.backgroundImage = 'url(frame/portrait.png)';
-      return iframe;
-   },
-   'landscape-primary' : (iframe) => {       
-      iframe.style.setProperty("opacity", "1", "important");
-      iframe.style.backgroundImage = 'url(frame/landscape.png)';
-      return iframe;
-   },
-};
    
 const greatDivWrapper = () => {
    const mainDiv = document.createElement('div');
    mainDiv.classList.add('wrapper');
-   mainDiv.style.border = '1px solid black';
+   
    mainDiv.style.padding = '0';
    mainDiv.style.margin = '0';
    mainDiv.style.zIndex = '10';
@@ -53,13 +35,32 @@ const greatDivWrapper = () => {
    mainDiv.prepend(div);
    document.querySelector('body').prepend(mainDiv);
 };
+
+
+
+const listener = (iframeDoc, event) => {
+   const command = event.data;
    
+   const w = document.documentElement.clientWidth;
+   const h = document.documentElement.clientHeight / 4;
+   //console.log(w, h);  
+   
+   // По идее тут должен меняться размер экранна фрейма, но он не меняется
+   iframeDoc.body.style.width = `${w}px`;
+   iframeDoc.body.style.height = `${h}px`;
+   
+   // console.log('ширтна', iframeDoc.body.style.width);
+   // console.log('высота', iframeDoc.body.style.height);
+
+};
+
+
+
 window.addEventListener('load', () => {
    greatDivWrapper();
    buildIframe();
-});
-
-screen.orientation.addEventListener("change", () => {
    const iframe = document.querySelector('iframe');
-   build(iframe);
+   const iframeDoc = iframe.contentDocument;
+   
+   window.addEventListener("message", listener.bind(null, iframeDoc), false );
 });
