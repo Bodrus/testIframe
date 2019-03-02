@@ -1,25 +1,28 @@
   
  
 const buildIframe = () => {
+  
    const iframe = document.createElement('iframe');
    iframe.src = 'frame/index.html';
-   iframe.frameborder = 0;
+   iframe.frameborder = '0';
+   iframe.scrolling = 'no';
+   iframe.marginHeight = '0';
+   iframe.marginWidth = '0'; 
    iframe.style.border = 'none';
    iframe.style.setProperty('width', '100%', 'important');
    iframe.style.setProperty('height', '100%', 'important');
    iframe.style.setProperty("opacity", "1", "important");
+   iframe.style.allowtransparency = 'true';
+  
    document.querySelector('.wrapper div:first-child').prepend(iframe);
 };
-   
-   
+    
 const greatDivWrapper = () => {
    const mainDiv = document.createElement('div');
    mainDiv.classList.add('wrapper');
-   
    mainDiv.style.padding = '0';
    mainDiv.style.margin = '0';
-   mainDiv.style.zIndex = '10';
-   
+   mainDiv.style.zIndex = '10'; 
    mainDiv.style.position = 'fixed';
    mainDiv.style.bottom = '0';
    mainDiv.style.right = '0';
@@ -36,31 +39,19 @@ const greatDivWrapper = () => {
    document.querySelector('body').prepend(mainDiv);
 };
 
-
-
-const listener = (iframeDoc, event) => {
-   const command = event.data;
-   
-   const w = document.documentElement.clientWidth;
-   const h = document.documentElement.clientHeight / 4;
-   //console.log(w, h);  
-   
-   // По идее тут должен меняться размер экранна фрейма, но он не меняется
-   iframeDoc.body.style.width = `${w}px`;
-   iframeDoc.body.style.height = `${h}px`;
-   
-   // console.log('ширтна', iframeDoc.body.style.width);
-   // console.log('высота', iframeDoc.body.style.height);
-
+const dellIframe = () => {
+   const frame = document.querySelector('iframe');
+   frame.parentNode.removeChild(frame);
 };
 
-
+const funcChange = () => {
+   dellIframe(); 
+   buildIframe();
+};
 
 window.addEventListener('load', () => {
    greatDivWrapper();
    buildIframe();
-   const iframe = document.querySelector('iframe');
-   const iframeDoc = iframe.contentDocument;
-   
-   window.addEventListener("message", listener.bind(null, iframeDoc), false );
+   window.addEventListener("orientationchange", funcChange);
+   window.addEventListener("resize", funcChange);
 });

@@ -1,46 +1,30 @@
 
-const funcChange = () => {
-   const body = document.querySelector('body');
-   sendMessage();
-   
-   // Временное решение!!!!!
-   document.location.reload(true);
-   
-   const { type } = screen.orientation;
-   if (type === 'portrait-primary') {
-      body.style.backgroundImage = 'url(portrait.png)';
-   
-   } else if (type === 'landscape-primary') {
-      body.style.backgroundImage = 'url(landscape.png)';     
-   }
-};
-
-const sendMessage = () => {
-   var command = 'change screan orientation'; 
-   top.postMessage(command, "*");
-};
-
-
-screen.orientation.addEventListener("change", funcChange);
-
 window.addEventListener('load', () => {
-   const body = document.querySelector('body');
-   body.style.backgroundRepeat = 'no-repeat';
-   body.style.backgroundSize = 'cover';
-   body.style.backgroundPosition = 'center center';
-   body.style.backgroundAttachment = 'fixet';
-
+   const div = document.querySelector('div');
+   div.style.backgroundRepeat = 'no-repeat';
+   div.style.backgroundSize = 'auto';
+   
+   div.style.backgroundPosition = 'center center';
+   div.style.backgroundAttachment = 'fixet';
+   
    const { type } = screen.orientation;
-   const w = document.documentElement.clientWidth;
-   const h = document.documentElement.clientHeight;
-   body.style.width = `${w}px`;
-   body.style.height = `${h}px`;
-   
+ 
+   const w = window.innerWidth;
+   const h = window.innerHeight;
+   div.style.width = `${w}px`;
+   div.style.height = `${h}px`;
+  
+  
    if (type === 'portrait-primary') {
-      body.style.backgroundImage = 'url(portrait.png)';
-   
+      div.style.backgroundImage = 'url(portrait.png)';
+      div.style.backgroundColor = '#40bb63';
+      
    } else if (type === 'landscape-primary') {
-      body.style.backgroundImage = 'url(landscape.png)';
+      div.style.backgroundImage = 'url(landscape.png)';
+      div.style.backgroundColor = '#3b68cc'; 
    }
+ 
+   window.addEventListener("message", listener, false );
+
 });
 
