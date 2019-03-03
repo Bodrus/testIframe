@@ -1,9 +1,8 @@
   
- 
-const buildIframe = () => {
-  
+const buildIframe = () => { 
    const iframe = document.createElement('iframe');
    iframe.src = 'frame/index.html';
+   iframe.name = 'baner';
    iframe.frameborder = '0';
    iframe.scrolling = 'no';
    iframe.marginHeight = '0';
@@ -13,7 +12,6 @@ const buildIframe = () => {
    iframe.style.setProperty('height', '100%', 'important');
    iframe.style.setProperty("opacity", "1", "important");
    iframe.style.allowtransparency = 'true';
-  
    document.querySelector('.wrapper div:first-child').prepend(iframe);
 };
     
@@ -39,19 +37,18 @@ const greatDivWrapper = () => {
    document.querySelector('body').prepend(mainDiv);
 };
 
-const dellIframe = () => {
-   const frame = document.querySelector('iframe');
-   frame.parentNode.removeChild(frame);
+const funcChange = (path) => {
+   path.postMessage('Ответ от генерала', "*");
 };
 
-const funcChange = () => {
-   dellIframe(); 
-   buildIframe();
+const listener = (e) => {
+   window.addEventListener("orientationchange", funcChange.bind(null, e.source));
+   window.addEventListener("resize", funcChange.bind(null, e.source));
+   e.source.postMessage('Ответ от генерала', "*"); 
 };
 
 window.addEventListener('load', () => {
    greatDivWrapper();
    buildIframe();
-   window.addEventListener("orientationchange", funcChange);
-   window.addEventListener("resize", funcChange);
+   window.addEventListener("message", listener, false );
 });

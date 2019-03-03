@@ -1,11 +1,11 @@
 
-window.addEventListener('load', () => {
+const changeWindow = () => {
    const div = document.querySelector('div');
    div.style.backgroundRepeat = 'no-repeat';
    div.style.backgroundSize = 'auto';
    
    div.style.backgroundPosition = 'center center';
-   div.style.backgroundAttachment = 'fixet';
+   div.style.backgroundAttachment = 'fichangeWindowet';
    
    const { type } = screen.orientation;
  
@@ -13,7 +13,6 @@ window.addEventListener('load', () => {
    const h = window.innerHeight;
    div.style.width = `${w}px`;
    div.style.height = `${h}px`;
-  
   
    if (type === 'portrait-primary') {
       div.style.backgroundImage = 'url(portrait.png)';
@@ -23,8 +22,15 @@ window.addEventListener('load', () => {
       div.style.backgroundImage = 'url(landscape.png)';
       div.style.backgroundColor = '#3b68cc'; 
    }
- 
-   window.addEventListener("message", listener, false );
+};
 
+const listener = (e) => {
+   changeWindow();
+};
+
+window.addEventListener('load', () => {
+   top.postMessage('Фраим загружен', "*");
+   window.addEventListener("message", listener, false);
+   changeWindow();
 });
 
