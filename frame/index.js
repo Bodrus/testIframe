@@ -14,7 +14,7 @@ const choiсeStyle = {
 
 const changeWindow = () => {
    const body = document.querySelector('body');
-   const { type } = screen.orientation;
+   const type = screen.orientation.type;
    const w = window.innerWidth;
    const h = window.innerHeight;
    body.style.width = `${w}px`;
@@ -33,6 +33,6 @@ window.addEventListener('load', () => {
    top.postMessage('Фраим загружен', "*");
    window.addEventListener("message", listener, false);
    createStyle();
-   changeWindow();
+   changeWindow();  
 });
 
