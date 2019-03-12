@@ -1,0 +1,19 @@
+
+
+body {
+   background-repeat: no-repeat;
+   background-size: auto;
+   background-position: center center;
+   background-attachment: 'fichangeWindowet';
+}
+
+
+
+.portrait {
+   background-color: #40bb63;
+   background-image: url(portrait.png);
+}
+.landscape {
+   background-color: #3b68cc;
+   background-image: url(landscape.png);
+}

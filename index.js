@@ -38,17 +38,18 @@ const greatDivWrapper = () => {
 };
 
 const funcChange = (path) => {
-   path.postMessage('Ответ от генерала', "*");
+   path.postMessage( {height: window.innerHeight, width: window.innerWidth }, "*");
 };
 
 const listener = (e) => {
    window.addEventListener("orientationchange", funcChange.bind(null, e.source));
    window.addEventListener("resize", funcChange.bind(null, e.source));
-   e.source.postMessage('Ответ от генерала', "*"); 
+   e.source.postMessage({height: window.innerHeight, width: window.innerWidth }, "*"); 
 };
 
 window.addEventListener('load', () => {
    greatDivWrapper();
    buildIframe();
+   
    window.addEventListener("message", listener, false );
 });
